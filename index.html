@@ -1,0 +1,98 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>أدوات الطباعة - Print Tools</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Tajawal:wght@400;500;700;800&display=swap" rel="stylesheet">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/dom-to-image/2.6.0/dom-to-image.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/FileSaver.js/2.0.5/FileSaver.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/html2pdf.js/0.10.1/html2pdf.bundle.min.js"></script>
+    <script>
+      tailwind.config = {
+        theme: {
+          extend: {
+            fontFamily: {
+              sans: ['Tajawal', 'sans-serif'],
+            },
+            colors: {
+              brand: {
+                DEFAULT: '#1a9d81',
+                dark: '#147a63',
+                light: '#e8f5f2'
+              }
+            },
+            screens: {
+              'print': {'raw': 'print'},
+            }
+          }
+        }
+      }
+    </script>
+    <style>
+      /* ---------- Quotation ---------- */
+      @media print {
+        @page { size: A4; margin: 0; }
+        body { -webkit-print-color-adjust: exact; print-color-adjust: exact; background-color: white; }
+        .no-print { display: none !important; }
+        .print-hidden { display: none !important; }
+      }
+
+      input[type="date"]::-webkit-calendar-picker-indicator,
+      input[type="date"]::-webkit-inner-spin-button {
+        display: none !important;
+        -webkit-appearance: none !important;
+        background: none !important;
+        opacity: 0 !important;
+        width: 0 !important;
+      }
+
+      .saving-mode input::placeholder {
+        color: transparent !important;
+      }
+      .saving-mode #logoPreview,
+      .saving-mode #stampPreview {
+        border: none !important;
+      }
+      .saving-mode .customer-input {
+        border-bottom: 1px solid #ccc !important;
+        border-style: solid !important;
+      }
+      .saving-mode .print-hidden {
+        display: none !important;
+      }
+
+      /* ---------- Montage ---------- */
+      .bg-accent { background-color: #ffce00; }
+      .border-accent { border-color: #ffce00; }
+      .hover\:bg-accent-dark:hover { background-color: #e6b700; }
+
+      .crop-mark {
+        position: absolute;
+        background-color: #333;
+      }
+      .crop-mark-v {
+        width: 1px;
+      }
+      .crop-mark-h {
+        height: 1px;
+      }
+      .item-number {
+        position: absolute;
+        top: 50%;
+        left: 50%;
+        transform: translate(-50%, -50%);
+        color: rgba(0,0,0,0.5);
+        font-size: 1.2vw;
+        font-weight: 700;
+        -webkit-font-smoothing: antialiased;
+        -moz-osx-font-smoothing: grayscale;
+      }
+    </style>
+    <script type="module" crossorigin src="/eslam_magdy_prices/assets/index-CxeApdr-.js"></script>
+  </head>
+  <body>
+    <div id="root"></div>
+  </body>
+</html>
