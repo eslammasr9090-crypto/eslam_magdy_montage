@@ -1,5 +1,6 @@
 
 import React, { useState, useEffect } from 'react';
+import { flushSync } from 'react-dom';
 import { Plus, Trash2, RotateCcw, Image as ImageIcon, FileText, History, Save, X } from 'lucide-react';
 import { InvoiceItem, InvoiceDetails, SavedQuotation, PREDEFINED_ITEMS, PREDEFINED_SIZES } from './types';
 import { Header } from './components/Header';
@@ -38,6 +39,7 @@ const App: React.FC = () => {
   const [editingId, setEditingId] = useState<string | null>(null);
 
   const [zoom, setZoom] = useState<number>(0.9);
+  const [isExporting, setIsExporting] = useState(false);
   const [savedQuotations, setSavedQuotations] = useState<SavedQuotation[]>(() => {
     try {
       const saved = localStorage.getItem('quotation_history');
@@ -110,20 +112,40 @@ const App: React.FC = () => {
       document.body.classList.add('saving-mode');
       addButton.style.display = 'none';
       deleteButtons.forEach(btn => (btn as HTMLElement).style.display = 'none');
+      flushSync(() => setIsExporting(true));
+
+      const restore = () => {
+        setIsExporting(false);
+        document.body.classList.remove('saving-mode');
+        addButton.style.display = 'flex';
+        deleteButtons.forEach(btn => (btn as HTMLElement).style.display = '');
+        element.style.transform = originalTransform;
+      };
 
       const opt = {
         margin: 0,
-        filename: `عرض_سعر_${details.customerName || 'جديد'}.pdf`,
         image: { type: 'jpeg', quality: 0.98 },
         html2canvas: { scale: 2, useCORS: true, scrollY: 0 },
         jsPDF: { unit: 'mm', format: 'a4', orientation: 'portrait' }
       };
 
-      html2pdf().set(opt).from(element).save().then(() => {
-        document.body.classList.remove('saving-mode');
-        addButton.style.display = 'flex';
-        deleteButtons.forEach(btn => (btn as HTMLElement).style.display = '');
-        element.style.transform = originalTransform;
+      const worker = html2pdf().set(opt).from(element).toCanvas();
+      worker.get('canvas').then((canvas: HTMLCanvasElement) =>
+        worker.toPdf().get('pdf').then((pdf: any) => {
+          const generatedPages = pdf.getNumberOfPages();
+          pdf.addPage('a4', 'portrait');
+          for (let i = generatedPages; i >= 1; i--) pdf.deletePage(i);
+          const pageW = pdf.internal.pageSize.getWidth();
+          const pageH = pdf.internal.pageSize.getHeight();
+          const ratio = Math.min(pageW / canvas.width, pageH / canvas.height);
+          const w = canvas.width * ratio;
+          const h = canvas.height * ratio;
+          pdf.addImage(canvas.toDataURL('image/jpeg', 0.98), 'JPEG', (pageW - w) / 2, 0, w, h);
+          pdf.save(`عرض_سعر_${details.customerName || 'جديد'}.pdf`);
+        })
+      ).then(restore, (error: any) => {
+        console.error('Error saving PDF:', error);
+        restore();
       });
     }
   };
@@ -481,6 +503,11 @@ const App: React.FC = () => {
             <div className="mb-[20px] px-[40px]">
                 <div className="flex items-center gap-2 text-[16px] mb-[5px]">
                     <span className="font-bold text-brand text-lg">السادة</span>
+                    {isExporting ? (
+                      <span className="w-[70%] border-b border-solid border-[#ccc] px-2 py-0 text-black font-bold font-sans text-[16px] leading-[1.6] min-h-[1.6em]">
+                        {details.customerName}
+                      </span>
+                    ) : (
                     <input 
                         type="text" 
                         placeholder="اسم العميل أو المؤسسة"
@@ -488,6 +515,7 @@ const App: React.FC = () => {
                         onChange={(e) => handleDetailsChange('customerName', e.target.value)}
                         className="customer-input w-[70%] border-b border-dashed border-[#999] outline-none px-2 py-0 bg-transparent text-black font-bold placeholder-gray-400 font-sans text-[16px]"
                     />
+                    )}
                 </div>
                 <p className="text-[13px] text-[#666] mt-0">
                     يسرنا نحن شركة التصميم الحديث أن نتقدم إليكم بعرض السعر التالي...
