@@ -86,13 +86,12 @@ export const Footer: React.FC<FooterProps> = ({ subTotal, vat, total, details, u
           />
           <div 
             id="stampPreview"
-            className={`w-[200px] h-[200px] block cursor-pointer bg-contain bg-center bg-no-repeat mt-0 ${details.stamp ? '' : 'border-2 border-dashed border-[#ccc] rounded-full flex items-center justify-center'}`}
+            className={`w-[200px] h-[200px] block cursor-pointer bg-contain bg-center bg-no-repeat mt-0 ${details.stamp ? 'opacity-90' : 'border-2 border-dashed border-[#ccc] rounded-full flex items-center justify-center'}`}
+            style={details.stamp ? { backgroundImage: `url(${details.stamp})` } : undefined}
             onClick={handleStampClick}
             title="اضغط لإضافة الختم"
           >
-             {details.stamp ? (
-               <img src={details.stamp} alt="Stamp" className="w-full h-full object-contain opacity-90" />
-             ) : (
+             {!details.stamp && (
                <span className="text-[#999]">مكان الختم</span>
              )}
           </div>

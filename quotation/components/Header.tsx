@@ -34,7 +34,8 @@ export const Header: React.FC<HeaderProps> = ({ details, updateDetails }) => {
       <div className="w-[30%] text-right">
         <div 
           id="logoPreview"
-          className={`w-[110px] h-[110px] inline-flex items-center justify-center cursor-pointer bg-contain bg-center bg-no-repeat ${details.logo ? '' : 'border-2 border-dashed border-gray-300 rounded-[10px]'}`}
+          className={`w-[110px] h-[110px] inline-flex items-center justify-center cursor-pointer bg-contain bg-center bg-no-repeat rounded-[10px] ${details.logo ? '' : 'border-2 border-dashed border-gray-300'}`}
+          style={details.logo ? { backgroundImage: `url(${details.logo})` } : undefined}
           onClick={handleLogoClick}
           title="اضغط لتغيير الشعار"
         >
@@ -45,9 +46,7 @@ export const Header: React.FC<HeaderProps> = ({ details, updateDetails }) => {
             accept="image/*" 
             onChange={handleFileChange}
           />
-          {details.logo ? (
-            <img src={details.logo} alt="Logo" className="w-full h-full object-contain rounded-[10px]" />
-          ) : (
+          {!details.logo && (
             <span className="text-[12px] text-gray-400 font-sans">اضغط لإضافة اللوجو</span>
           )}
         </div>
