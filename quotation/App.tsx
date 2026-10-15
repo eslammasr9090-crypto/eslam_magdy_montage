@@ -125,7 +125,7 @@ const App: React.FC = () => {
       const opt = {
         margin: 0,
         image: { type: 'jpeg', quality: 0.98 },
-        html2canvas: { scale: 2, useCORS: true, scrollY: 0 },
+        html2canvas: { scale: 4, useCORS: true, scrollY: 0 },
         jsPDF: { unit: 'mm', format: 'a4', orientation: 'portrait' }
       };
 
@@ -140,7 +140,7 @@ const App: React.FC = () => {
           const ratio = Math.min(pageW / canvas.width, pageH / canvas.height);
           const w = canvas.width * ratio;
           const h = canvas.height * ratio;
-          pdf.addImage(canvas.toDataURL('image/jpeg', 0.98), 'JPEG', (pageW - w) / 2, 0, w, h);
+          pdf.addImage(canvas.toDataURL('image/jpeg', 1.0), 'JPEG', (pageW - w) / 2, 0, w, h, undefined, 'NONE');
           pdf.save(`عرض_سعر_${details.customerName || 'جديد'}.pdf`);
         })
       ).then(restore, (error: any) => {
