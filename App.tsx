@@ -2,7 +2,7 @@ import React, { useState } from 'react';
 import QuotationApp from './quotation/App';
 import MontageApp from './montage/App';
 
-type Tool = 'quotation' | 'montage';
+type Tool = 'quotation' | 'montage' | 'boxes';
 
 const TOOLS: { id: Tool; label: string }[] = [
   { id: 'quotation', label: 'عرض سعر | Quotation' },
