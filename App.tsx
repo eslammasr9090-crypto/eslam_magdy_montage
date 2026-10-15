@@ -1,17 +1,21 @@
 import React, { useState } from 'react';
 import QuotationApp from './quotation/App';
 import MontageApp from './montage/App';
+import BoxesApp from './boxes/App';
 
 type Tool = 'quotation' | 'montage' | 'boxes';
 
 const TOOLS: { id: Tool; label: string }[] = [
-  { id: 'quotation', label: 'عرض سعر | Quotation' },
-  { id: 'montage', label: 'مونتاج ديچيتال واستيكر | Montage' },
+  { id: 'quotation', label: 'Quotation' },
+  { id: 'montage', label: 'Digital Montage' },
+  { id: 'boxes', label: 'Box Pricing Calculator' },
 ];
-
 const getInitialTool = (): Tool =>
-  window.location.hash === '#montage' ? 'montage' : 'quotation';
-
+  window.location.hash === '#montage'
+    ? 'montage'
+    : window.location.hash === '#boxes'
+      ? 'boxes'
+      : 'quotation';
 const App: React.FC = () => {
   const [tool, setTool] = useState<Tool>(getInitialTool);
 
@@ -38,13 +42,15 @@ const App: React.FC = () => {
         </div>
       </nav>
 
-      {tool === 'quotation' ? (
-        <div className="bg-[#555] min-h-screen">
-          <QuotationApp />
-        </div>
-      ) : (
-        <MontageApp />
-      )}
+{tool === 'quotation' ? (
+  <div className="bg-[#555] min-h-screen">
+    <QuotationApp />
+  </div>
+) : tool === 'montage' ? (
+  <MontageApp />
+) : (
+  <BoxesApp />
+)}
     </>
   );
 };
