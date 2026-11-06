@@ -1,6 +1,6 @@
 import React from 'react';
-import { BoxPricingState } from '../types';
-import { calculateGrandTotal, formatNumber } from '../utils/calculator';
+import { BoxPricingState } from './types';
+import { calculateGrandTotal, formatNumber } from './calculator';
 import { Package, User, Mail } from 'lucide-react';
 
 interface PrintableQuotationProps {
