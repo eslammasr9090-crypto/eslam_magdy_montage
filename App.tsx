@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import QuotationApp from './quotation/App';
 import MontageApp from './montage/App';
-import BoxesApp from './boxes/App';
+import BoxesApp from './src/boxes/App';
 
 type Tool = 'quotation' | 'montage' | 'boxes';
 
