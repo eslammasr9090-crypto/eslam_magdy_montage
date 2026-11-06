@@ -1,5 +1,5 @@
 import React from 'react';
-import { BoxPricingState } from '../types';
+import { BoxPricingState } from './types';
 import {
   formatNumber,
   calculateGrandTotal,
