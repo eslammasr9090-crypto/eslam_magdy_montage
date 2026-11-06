@@ -13,13 +13,13 @@ import {
   calculateCoverTotal,
   calculateAssemblyTotal,
   calculateWindowTotal,
-} from './utils/calculator';
-import { generateQuotationPdf } from './utils/pdfExport';
-import { Header } from './components/Header';
-import { PricingForm } from './components/PricingForm';
-import { SummaryCard } from './components/SummaryCard';
-import { SettingsModal } from './components/SettingsModal';
-import { PrintableQuotation } from './components/PrintableQuotation';
+} from './calculator';
+import { generateQuotationPdf } from './pdfExport';
+import { Header } from './Header';
+import { PricingForm } from './PricingForm';
+import { SummaryCard } from './SummaryCard';
+import { SettingsModal } from './SettingsModal';
+import { PrintableQuotation } from './PrintableQuotation';
 import { CheckCircle2, User, Mail } from 'lucide-react';
 
 export default function App() {
