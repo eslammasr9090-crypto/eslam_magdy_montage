@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import { PricingSettings } from '../types';
-import { DEFAULT_PRICING_SETTINGS, getSavedSettings, saveSettings } from '../utils/calculator';
+import { DEFAULT_PRICING_SETTINGS, getSavedSettings, saveSettings } from './utils/calculator';
 import { Settings, Save, RotateCcw, X, Check } from 'lucide-react';
 
 interface SettingsModalProps {
