@@ -1,5 +1,5 @@
 import React from 'react';
-import { BoxPricingState } from '../types';
+import { BoxPricingState } from './types';
 import { ProductionInfoCard } from './ProductionInfoCard';
 import {
   calculateSheetsTotal,
@@ -15,7 +15,7 @@ import {
   calculateAssemblyTotal,
   calculateWindowTotal,
   getSavedSettings,
-} from '../utils/calculator';
+} from './utils/calculator';
 import {
   FileText,
   Printer,
