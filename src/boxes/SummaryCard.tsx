@@ -3,7 +3,7 @@ import { BoxPricingState } from './types';
 import {
   formatNumber,
   calculateGrandTotal,
-} from '../utils/calculator';
+} from './calculator';
 import {
   Calculator,
   RotateCcw,
