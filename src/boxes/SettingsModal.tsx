@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import { PricingSettings } from '../types';
+import { PricingSettings } from './types';
 import { DEFAULT_PRICING_SETTINGS, getSavedSettings, saveSettings } from './calculator';
 import { Settings, Save, RotateCcw, X, Check } from 'lucide-react';
 
