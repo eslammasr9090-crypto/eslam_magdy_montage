@@ -8,7 +8,7 @@ import {
   calculateAssemblyTotal,
   getSavedSettings,
   formatNumber,
-} from '../utils/calculator';
+} from './calculator';
 import { Factory, Maximize2, Hash, Layers, Box, Package } from 'lucide-react';
 
 interface ProductionInfoCardProps {
