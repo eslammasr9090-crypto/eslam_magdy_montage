@@ -15,7 +15,7 @@ import {
   calculateAssemblyTotal,
   calculateWindowTotal,
   getSavedSettings,
-} from './utils/calculator';
+} from './calculator';
 import {
   FileText,
   Printer,
