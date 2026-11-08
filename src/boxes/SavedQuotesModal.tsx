@@ -1,6 +1,6 @@
 import React from 'react';
-import { SavedQuotation } from '../types';
-import { formatCurrencySAR } from '../utils/calculator';
+import { SavedQuotation } from './types';
+import { formatCurrencySAR } from './calculator';
 import { X, BookmarkCheck, Trash2, ExternalLink, Calendar, User, Package, FileText } from 'lucide-react';
 
 interface SavedQuotesModalProps {
